@@ -1,0 +1,91 @@
+extends layout
+
+block content
+  style.
+    .rua-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      overflow: hidden; /* Para garantir que as imagens não ultrapassem os limites do cartão */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .rua-card:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    .rua-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px 8px 0 0;
+    }
+    .rua-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      min-height: 150px; /* Altura mínima para garantir que todos tenham o mesmo tamanho */
+    }
+    .rua-title {
+      font-size: 1.5rem;
+      color: #1a237e;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .rua-footer {
+      margin-top: auto;
+      width: 100%;
+      text-align: center;
+      padding-bottom: 20px;
+    }
+    .w3-container {
+      padding-top: 30px;
+    }
+    .add-button {
+      position: fixed;  /* Fixed positioning for the button */
+      bottom: 20px;     /* Adjust distance from bottom */
+      right: 20px;      /* Adjust distance from right */
+      z-index: 99;       /* Ensure it's on top of other elements */
+      background-color: #1a237e; /* Indigo color for the button */
+      color: #ffffff;   /* White text color */
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex; /* Flexbox for centering icon */
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .add-button:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.26);
+      transform: translateY(-2px);
+    }
+    .add-button i { /* Style for the plus icon */
+      font-size: 24px;
+    }
+    .w3-container {
+      padding-top: 50px; /* Ajusted to give space for the button */
+    }
+  div(class='w3-container w3-margin-top')
+    h1(class='w3-center w3-xxlarge w3-text-indigo w3-margin-bottom') Ruas de Braga
+    a(href='/', class='w3-button w3-indigo w3-margin-bottom') Voltar Atrás
+    if (userLevel === 'admin')
+      a(href='/ruas/create', class='add-button w3-xlarge')
+        i(class='fas fa-plus')
+    div(class='w3-row-padding w3-margin-top')
+      each rua in ruas
+        div(class='w3-col l4 m6 s12 w3-margin-bottom')
+          div(class='w3-card-4 w3-round-large w3-white rua-card')
+            if rua.figuras && rua.figuras.length > 0
+              img(src=rua.figuras[0].imagem alt=rua.figuras[0].legenda class='w3-image rua-image')
+            else
+              div(class='rua-image', style='background-color: #f0f0f0;') // Imagem de reserva com cor de fundo
+            div(class='w3-container rua-content')
+              h2(class='rua-title') Rua nº #{rua._id}: #{rua.nome}
+            div(class='w3-container rua-footer')
+              a(href=`/ruas/${rua._id}`, class='w3-button w3-block w3-blue w3-round w3-padding-12') Ver detalhes

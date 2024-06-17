@@ -1,0 +1,47 @@
+extends layout.pug
+
+block content
+  div(class='hero-text')
+    h1(class='w3-jumbo w3-animate-top') Login
+    p(class='w3-xxlarge w3-animate-opacity') Enter your credentials to access the archive
+
+    form(action='/login', method='post', class='login-form') 
+      label(for='username') Username:
+      input(type='text', id='username', name='username', required)
+      br
+      label(for='password') Password:
+      input(type='password', id='password', name='password', required)
+      br
+      button(type='submit', class='index-button') Login
+  style.
+      /* ... (your existing styles) ... */
+
+      /* Login Form Styling */
+      .login-form {
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+        padding: 30px;
+        border-radius: 15px;
+        margin: 0 auto; /* Center the form */
+        max-width: 400px;
+      }
+      .login-form label {
+        display: block;
+        margin-bottom: 5px;
+        color: #1a237e; /* Indigo color for labels */
+      }
+      .login-form input[type="text"],
+      .login-form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      body {
+        background: url('https://www.cm-braga.pt/assets/images/bg-1.jpg') no-repeat center center fixed; 
+        background-size: cover;
+        color: white;
+        font-family: 'Cinzel', serif; /* Dramatic font */
+        overflow: hidden; /* Hide scrollbars for full-screen effect */
+      }

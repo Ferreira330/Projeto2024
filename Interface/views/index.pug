@@ -1,0 +1,114 @@
+//- layout.pug
+doctype html
+html
+  head
+    title Arquivo Digital de Braga
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css')
+    style.
+      /* Custom CSS for the index page */
+      body {
+        background: url('https://www.cm-braga.pt/assets/images/bg-1.jpg') no-repeat center center fixed; 
+        background-size: cover;
+        color: white;
+        font-family: 'Cinzel', serif; /* Dramatic font */
+        overflow: hidden; /* Hide scrollbars for full-screen effect */
+      }
+      .hero-text {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+      }
+      .w3-jumbo {
+        font-size: 5rem !important; /* Larger title */
+        text-shadow: 2px 2px 4px #000000; /* Add a shadow for emphasis */
+      }
+      .w3-xxlarge {
+        font-size: 2.5rem !important; /* Larger subtitle */
+      }
+      .index-button {
+        display: inline-block;
+        padding: 20px 40px; /* Larger button */
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #1a237e; /* Indigo color */
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+        margin: 30px; /* More space between buttons */
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .index-button:hover {
+        background-color: #3f51b5; /* Darker indigo on hover */
+        transform: scale(1.1); /* Grow on hover */
+        box-shadow: 0 12px #666; /* Larger shadow on hover */
+      }
+      .index-button:active {
+        background-color: #3f51b5;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+      .w3-animate-top {
+        animation: animatetop 2s ease; /* Increased duration to 2 seconds */
+      }
+      @keyframes animatetop {
+        from {top: -300px; opacity: 0;}
+        to {top: 0; opacity: 1;}
+      }
+
+      .w3-animate-opacity {
+        animation: fadein 3s ease; /* Increased duration to 3 seconds */
+      }
+      @keyframes fadein {
+        from {opacity: 0;}
+        to {opacity: 1;}
+      }
+
+block content
+  div(class='hero-text')
+    h1(class='w3-jumbo w3-animate-top') Arquivo Digital de Braga
+    p(class='w3-xxlarge w3-animate-opacity') Mergulhe na rica história e cultura de Braga
+
+    a(href='/ruas', class='index-button w3-xlarge') Ruas
+    a(href='/entidades', class='index-button w3-xlarge') Entidades
+    a(href='/datas', class='index-button w3-xlarge') Datas
+    a(href='/lugares', class='index-button w3-xlarge') Lugares
+    nav(class="side-nav")
+      if (loggedIn)
+        a(href="/logout", class="side-button") Logout
+      else
+        a(href="/login", class="side-button") Login
+        a(href="/register", class="side-button") Register
+
+    style.
+      /* Side Navigation Bar */
+      .side-nav {
+        position: fixed;
+        top: 50%; /* Position vertically centered */
+        left: 0;
+        transform: translateY(-50%); 
+        display: flex; /* Allow flexbox for button arrangement */
+        flex-direction: column; /* Arrange buttons vertically */
+      }
+      .side-button {
+        background-color: #1a237e; /* Indigo color */
+        color: white;
+        padding: 15px 25px; /* Button size */
+        text-align: center;
+        text-decoration: none;
+        display: block; /* Make buttons fill the width */
+        margin: 5px 0; /* Spacing between buttons */
+        border-radius: 0 10px 10px 0; /* Rounded corners on one side */
+        transition: background-color 0.3s;
+      }
+      .side-button:hover {
+        background-color: #3f51b5; /* Darker indigo on hover */
+      }

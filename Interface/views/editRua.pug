@@ -1,0 +1,70 @@
+extends layout
+
+block content
+  div(class='w3-container w3-margin-top')
+    h1(class='w3-center') Editar Rua: #{rua.nome}
+    a(href='javascript:history.back()', class='w3-button w3-indigo w3-margin-bottom') Voltar Atrás
+    form(action=`/ruas/${rua._id}/edit`, method='POST', enctype='multipart/form-data')
+
+      // Rua Number
+      div(class='w3-section')
+        label(for='numero') Número da Rua:
+        input(type='number', id='numero', name='numero', value=rua._id, readonly, class='w3-input w3-border')
+
+      // Rua Name
+      div(class='w3-section')
+        label(for='nome') Nome da Rua:
+        input(type='text', id='nome', name='nome', value=rua.nome, class='w3-input w3-border')
+
+      // Description
+      div(class='w3-section')
+        label(for='para') Descrição:
+        textarea(id='para', name='para', class='w3-input w3-border') #{rua.para}
+      // Existing Images
+      // Existing Images
+      div(class='w3-section')
+        label Existing Images:
+        div(class='w3-row-padding')
+          each figura, index in rua.figuras
+            div(class='w3-third w3-margin-bottom')
+              div(class='w3-card w3-round-large w3-display-container')
+                img(src=`/../${figura.imagem}` alt=figura.legenda class='w3-image w3-round-large' style='width: 100%; height: auto; max-height: 200px; object-fit: cover;')
+                button(type='button', class='w3-button w3-display-topright w3-red w3-small', onclick=`removeImage('${figura.imagem}', this)`) X
+              input(type='hidden', name=`figuras[${index}][imagem]`, value=figura.imagem)
+              input(type='hidden', name=`figuras[${index}][legenda]`, value=figura.legenda)
+      // New Images with Descriptions
+      div(class='w3-section', id='newImagesSection')
+        label Add New Images:
+      // Add Image Button
+      button(type='button', onclick='addImageInput()', class='w3-button w3-blue w3-small') Add Image
+      // Casas
+      div(class='w3-section')
+        h2 Casas
+        div(id='casas', class='w3-container w3-border w3-round', style='max-height: 400px; overflow-y: auto;')
+          each casa, index in rua.casas 
+            div(class='w3-section casa-entry')
+              div(class='w3-card w3-round w3-white w3-margin-bottom')
+                div(class='w3-container')
+                  label(for=`casas[${index}][número]`) Número da Casa:
+                  input(type='text', id=`casas[${index}][número]`, name=`casas[${index}][número]`, value=casa.número, class='w3-input w3-border')
+
+                  label(for=`casas[${index}][enfiteuta]`) Enfiteuta:
+                  input(type='text', id=`casas[${index}][enfiteuta]`, name=`casas[${index}][enfiteuta]`, value=casa.enfiteuta, class='w3-input w3-border')
+
+                  label(for=`casas[${index}][foro]`) Foro:
+                  input(type='text', id=`casas[${index}][foro]`, name=`casas[${index}][foro]`, value=casa.foro, class='w3-input w3-border')
+
+                  label(for=`casas[${index}][desc]`) Descrição:
+                  textarea(id=`casas[${index}][desc]`, name=`casas[${index}][desc]`, class='w3-input w3-border') #{casa.desc}
+
+                  button(type='button', class='w3-button w3-red w3-small', onclick='removeCasa(this)') Remover
+
+      // Add Casa button
+      button(type='button', onclick='addCasa()', class='w3-button w3-blue w3-small') Adicionar Casa
+
+      // Submit button
+      div(class='w3-section')
+        button(type='submit', class='w3-button w3-block w3-green w3-round') Atualizar Rua
+    
+  script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+  script(src="/javascripts/edit.js") 

@@ -1,0 +1,41 @@
+extends layout
+
+block content
+  div(class='w3-container w3-margin-top')
+    h1(class='w3-center') Adicionar Nova Rua
+    a(href='javascript:history.back()', class='w3-button w3-indigo w3-margin-bottom') Voltar Atrás
+    form(action='/ruas/new', method='POST', enctype='multipart/form-data')
+
+      // Rua Number
+      div(class='w3-section')
+        label(for='numero') Número da Rua:
+        input(type='number', id='numero', name='numero', value=nextRuaNumber, readonly, class='w3-input w3-border')
+
+      // Rua Name
+      div(class='w3-section')
+        label(for='nome') Nome da Rua:
+        input(type='text', id='nome', name='nome', class='w3-input w3-border')
+
+      // Description
+      div(class='w3-section')
+        label(for='para') Descrição:
+        textarea(id='para', name='para', class='w3-input w3-border')
+
+      // New Images with Descriptions (same as edit form)
+      div(class='w3-section', id='newImagesSection')
+        label Add New Images:
+      button(type='button', onclick='addImageInput()', class='w3-button w3-blue w3-small') Add Image
+
+      // Casas Section (same as edit form)
+      div(class='w3-section')
+        h2 Casas
+        div(id='casas', class='w3-container w3-border w3-round', style='max-height: 400px; overflow-y: auto;')
+
+      button(type='button', onclick='addCasa()', class='w3-button w3-blue w3-small') Adicionar Casa
+
+      // Submit button
+      div(class='w3-section')
+        button(type='submit', class='w3-button w3-block w3-green w3-round') Criar Rua
+
+  script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+  script(src="/javascripts/edit.js")  // Updated script for adding

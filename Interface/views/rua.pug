@@ -1,0 +1,67 @@
+extends layout
+
+block content
+  div(class='w3-container w3-margin-top')
+    h1(class='w3-center w3-text-indigo') Rua nº #{rua._id}: #{rua.nome}
+    a(href='javascript:history.back()', class='w3-button w3-indigo w3-margin-bottom') Voltar Atrás
+    // Para section
+    if rua.para && rua.para.length > 0
+      div(class='w3-panel w3-leftbar w3-border-indigo w3-light-gray w3-margin-top w3-padding')
+        each para in rua.para
+          p(class='w3-large w3-text-grey') #{para}
+
+    // Figuras section
+    if rua.figuras && rua.figuras.length > 0
+      div(class='w3-row-padding w3-margin-top')
+        each figura in rua.figuras
+          div(class='w3-third w3-margin-bottom')
+            div(class='w3-card w3-round-large w3-margin-bottom')
+              img(src=figura.imagem alt=figura.legenda class='w3-image w3-round-large' style='width: 100%; height: auto; max-height: 200px; object-fit: cover;')
+              div(class='w3-container w3-center w3-padding')
+                p(class='w3-text-grey') #{figura.legenda}
+
+    // Casas Foreiras section
+    if rua.casas && rua.casas.length > 0
+      h2(class='w3-margin-top w3-text-indigo') Casas
+      table(class='w3-table w3-striped w3-bordered w3-margin-top')
+        thead
+          tr(class='w3-indigo')
+            th Número
+            th Enfiteuta
+            th Foro
+            th Descrição  
+        tbody
+          each casa in rua.casas
+            tr
+              td #{casa.número}
+              td #{casa.enfiteuta}
+              td #{casa.foro}
+              td(class='w3-text-grey') #{casa.desc}
+    else
+      h2(class='w3-margin-top w3-text-indigo') Casas
+      p Não há casas associadas a esta rua.
+
+    // Edit and Remove buttons
+    if (userLevel === 'admin')
+      div(class='w3-margin-top w3-center')
+        a(href=`/ruas/${rua._id}/edit`, class='w3-button w3-pale-yellow w3-round w3-padding w3-margin-right' style='color: #333; background-color: #ffc107;') Editar Rua
+
+        // Remove button with confirmation
+        button(class='w3-button w3-red w3-round w3-padding' onclick='confirmDelete()') Remover Rua
+
+  // JavaScript for confirmation dialog
+  script.
+    function confirmDelete() {
+      if (confirm("Tem a certeza que deseja remover esta rua?")) {
+        const url = window.location.href + '/delete';
+        fetch(url, { method: 'GET' })
+          .then(response => {
+            if (response.ok) {
+              window.location.href = '/ruas';
+            } else {
+              alert('Erro ao remover a rua.');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+    }
